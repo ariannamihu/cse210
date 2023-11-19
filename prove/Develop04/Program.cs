@@ -26,10 +26,9 @@ public class Program
 
                         break;
                     case 2:
-                        GeneralActivity generalActivityReflecting = new GeneralActivity("reflecting", "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.");
+                        ReflectingActivity generalActivityReflecting = new ReflectingActivity("reflecting", "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.");
 
-                        generalActivityReflecting.DisplayStartMessage();
-                        generalActivityReflecting.DisplayEndMessage();
+                        generalActivityReflecting.RunReflectingActivity();
 
                         break;
                     case 3:

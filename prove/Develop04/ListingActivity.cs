@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
 
-
-
 public class ListingActivity : GeneralActivity
 {
     List<string> answers = new List<string>
     {
 
     };
+        
+    string filePath = "/Users/ariannamihu/Desktop/School/cse210/cse210/prove/Develop04/List.csv";
+
+    
+
 
     List<string> prompts = new List<string> {
         "Who are people that you appreciate?",
@@ -22,6 +25,15 @@ public class ListingActivity : GeneralActivity
         :  base(name, activityDescription)
     {
 
+    }
+
+    public void SaveToFile(string file, string answers)
+    {
+        using (StreamWriter writer = new StreamWriter(file, true))
+        {
+            writer.WriteLine(answers);
+        }
+        Console.WriteLine("Your answers have been saved.");
     }
 
     public void RunListingActivity()
@@ -42,6 +54,7 @@ public class ListingActivity : GeneralActivity
             Console.WriteLine("Write down an item to add to the list:");
             string listItem = Console.ReadLine();
             answers.Add(listItem);
+            SaveToFile(filePath, listItem);
         }
 
         Console.WriteLine(answers);
