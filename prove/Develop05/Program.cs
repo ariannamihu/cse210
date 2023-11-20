@@ -1,4 +1,5 @@
 using System;
+using System.IO; 
 
 class Program
 {
@@ -9,6 +10,7 @@ class Program
         string _goalName = "";
         string _goalDescription  = "";
         int _goalPoints = 0;
+        string _fileName = "Goals.csv";
 
         List<string> goalsList = new List<string> {
 
@@ -56,14 +58,53 @@ class Program
                     case 3:
                         Goal goal2 = new Goal(_goalName, _goalDescription, _goalPoints);
 
-                        goalsList.Add(goal2.ToString());
+                        using (StreamWriter outputFile = new StreamWriter(_fileName, true))
+                        {
+                            outputFile.WriteLine($"{_goalOption},{goal2.ToString()}");
+                        }
+
                         break;
                     case 4:
-                        goalsList.ForEach(p => Console.WriteLine(p));
+                        string[] lines = System.IO.File.ReadAllLines(_fileName);
+
+                        foreach (string line in lines)
+                        {
+                            string[] parts = line.Split(",");
+
+                            string option = parts[0];
+                            string name = parts[1];
+                            string description = parts[2];
+                            string points = parts[3];
+
+                            Console.WriteLine($"{name}: {description}");
+                        }
 
                         break;
                     case 5:
-                        
+                        Console.WriteLine("The goals are: ");
+                        string[] lines2 = System.IO.File.ReadAllLines(_fileName);
+
+                        for (int i = 0; i < lines2.Length; i++)
+                        {
+                            string[] parts = lines2[i].Split(",");
+                   
+                            string option = parts[0];
+                            string name = parts[1];
+                            string description = parts[2];
+                            string points = parts[3];
+                            Console.WriteLine($"{i + 1}: {name}");                            
+                        }
+
+                        Console.WriteLine("Which goal did you accomplish?");
+                        int _accomplishedGoal = int.Parse(Console.ReadLine());
+                        int goalToAdd = _accomplishedGoal - 1;
+
+                        string[] parts2 = lines2[goalToAdd].Split(",");
+                        string points2 = parts2[3];
+
+                        _totalPoints += int.Parse(points2); // Assuming _totalPoints is an integer
+                        Console.WriteLine($"Congratulations! {points2} points have been added to your score!");
+
                         break;
                     case 6:
                         quit = true;

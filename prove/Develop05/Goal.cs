@@ -20,52 +20,14 @@ public class Goal
         _points = points;
     }
 
-    // public Goal(string savedString)
-    // {
-
-    // }
-
     public int RecordEvent()
     {
         return _points;
     }
 
-    // public string ToSavedString()
-    // {
-
-    // }
-
-    // public void SaveToFile(string file)
-    // {
-    //     using (StreamWriter writer = new StreamWriter(file, true)) 
-    //     {
-    //         foreach (var entry in JournalEntriesList)
-    //         {
-    //             writer.WriteLine($" {entry._date}, {entry._prompt}, {entry._response}");
-    //         }
-    //     }
-    //     Console.WriteLine("The journal entry has been saved.");
-    // }
-
-    // public void LoadFromFile(string file)
-    // {
-    //     using (StreamReader reader = new StreamReader(file, true))
-    //     {
-    //         var line = reader.ReadLine();
-    //         while(line!=null)
-    //         {
-    //             var splitLine = line.Split(",");
-    //             var newEntry = new JournalEntry(splitLine[0], splitLine[1], splitLine[2]);
-    //             JournalEntriesList.Add(newEntry);
-    //             Console.WriteLine(line);
-    //             line = reader.ReadLine();
-    //         }
-    //     }
-    // }
-
     public override string ToString()
     {
-        return $"{_name}|{_description}|{_points}";
+        return $"{_name},{_description},{_points}";
     }
 
 
