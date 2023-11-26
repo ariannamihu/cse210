@@ -132,8 +132,9 @@ class Program
                         string name2 = parts2[1];
                         string description2 = parts2[2];
                         int points2 = int.Parse(parts2[3]);
-                        int timesCompleted2 = int.Parse(parts2[4]);
-                        int timesToComplete2 = int.Parse(parts2[5]);
+                        bool isComplete = bool.Parse(parts2[4]);
+                        int timesCompleted2 = int.Parse(parts2[5]);
+                        int timesToComplete2 = int.Parse(parts2[6]);
 
                         if(option2 == "1")
                         {
