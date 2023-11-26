@@ -1,6 +1,8 @@
 using System;
 using System.IO; 
 
+namespace Develop05;
+
 class Program
 {
     static void Main(string[] args)
@@ -11,6 +13,8 @@ class Program
         string _goalDescription  = "";
         int _goalPoints = 0;
         string _fileName = "Goals.csv";
+        int timesToCompleteGoal = 0;
+        int goalBonus = 0;
 
         List<string> goalsList = new List<string> {
 
@@ -50,17 +54,40 @@ class Program
                         Console.WriteLine("Points? ");
                         _goalPoints = int.Parse(Console.ReadLine());
 
-                        Goal goal1 = new Goal(_goalName, _goalDescription, _goalPoints);
+                        if(_goalOption == 1)
+                        {
+                            SimpleGoal simpleGoal1 = new SimpleGoal(_goalName, _goalDescription, _goalPoints);
+                        }
+                        else if(_goalOption == 2)
+                        {
+                            Goal eternalGoal1 = new Goal(_goalName, _goalDescription, _goalPoints);
+                        }
+                        else
+                        {
+                            Console.WriteLine("How many times do you need to complete this goal?");
+                            timesToCompleteGoal = int.Parse(Console.ReadLine());
 
-                        Console.WriteLine(goal1);
+                            Console.WriteLine("What is the bonus for completing this goal?");
+                            goalBonus = int.Parse(Console.ReadLine());
 
+                            ChecklistGoal checklistGoal1 = new ChecklistGoal(_goalName, _goalDescription, _goalPoints, timesToCompleteGoal, goalBonus);
+                        }
                         break;
                     case 3:
-                        Goal goal2 = new Goal(_goalName, _goalDescription, _goalPoints);
-
-                        using (StreamWriter outputFile = new StreamWriter(_fileName, true))
+                        if(_goalOption == 1)
                         {
-                            outputFile.WriteLine($"{_goalOption},{goal2.ToString()}");
+                            SimpleGoal simpleGoal2 = new SimpleGoal(_goalName, _goalDescription, _goalPoints);
+                            simpleGoal2.ToSavedString(_fileName);
+                        }
+                        else if(_goalOption == 2)
+                        {
+                            Goal eternalGoal2 = new Goal(_goalName, _goalDescription, _goalPoints);
+                            eternalGoal2.ToSavedString(_fileName);
+                        }
+                        else
+                        {
+                            ChecklistGoal checklistGoal2 = new ChecklistGoal(_goalName, _goalDescription, _goalPoints, timesToCompleteGoal, goalBonus);
+                            checklistGoal2.ToSavedString(_fileName);
                         }
 
                         break;
@@ -100,10 +127,32 @@ class Program
                         int goalToAdd = _accomplishedGoal - 1;
 
                         string[] parts2 = lines2[goalToAdd].Split(",");
-                        string points2 = parts2[3];
 
-                        _totalPoints += int.Parse(points2); // Assuming _totalPoints is an integer
-                        Console.WriteLine($"Congratulations! {points2} points have been added to your score!");
+                        string option2 = parts2[0];
+                        string name2 = parts2[1];
+                        string description2 = parts2[2];
+                        int points2 = int.Parse(parts2[3]);
+                        int timesCompleted2 = int.Parse(parts2[4]);
+                        int timesToComplete2 = int.Parse(parts2[5]);
+
+                        if(option2 == "1")
+                        {
+                            SimpleGoal simpleGoal3 = new SimpleGoal(name2, description2, points2);
+                            simpleGoal3.RecordEvent();
+                        }
+                        else if(option2 == "2")
+                        {
+                            Goal eternalGoal3 = new Goal(name2, description2, points2);
+                            eternalGoal3.RecordEvent();
+                        }
+                        else
+                        {
+                            ChecklistGoal checklistGoal3 = new ChecklistGoal(name2, description2, points2, timesCompleted2, timesToComplete2);
+                            checklistGoal3.RecordEvent();
+                        }
+
+                        // _totalPoints += int.Parse(points2); // Assuming _totalPoints is an integer
+                        // Console.WriteLine($"Congratulations! {points2} points have been added to your score!");
 
                         break;
                     case 6:
